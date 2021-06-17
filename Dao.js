@@ -1,30 +1,29 @@
 const { Client } = require('pg')
 const config = {
-    host: 'tuffi.db.elephantsql.com',
-    user: 'kzlwiesn',
-    password: 'vTlyjfxeU1NOjgV59GnhlxhfhjszaYIq',
-    database: 'kzlwiesn'
+    host: 'localhost',
+    user: 'postgres',
+    password: 'mudar123',
+    database: 'postgres'
 }
-
-const client = new Client(config)
 
 class Dao {
     query(sql) {
+        const client = new Client(config)
         return new Promise((resolve, reject) => {
-            const con = client
+            
+            client.connect(err => {
 
-            con.connect(err => {
-                if(err) resolve(err)
-            })
-
-            con.query(sql, (err, res) => {
-                if(err) resolve(err)
-                else resolve(res.rows)
-
-                con.end()
+                if (err) resolve(err)
+                client.query(sql, (err, res) => {
+                    
+                    if (err) resolve(err)
+                    else resolve(res.rows)
+                    client.end()
+                })
             })
         })
     }
 }
+
 
 module.exports = Dao
