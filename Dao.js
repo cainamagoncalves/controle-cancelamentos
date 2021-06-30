@@ -10,13 +10,12 @@ class Dao {
     query(sql) {
         const client = new Client(config)
         return new Promise((resolve, reject) => {
-            
             client.connect(err => {
 
-                if (err) resolve(err)
+                if (err) reject(err)
                 client.query(sql, (err, res) => {
-                    
-                    if (err) resolve(err)
+
+                    if (err) reject(err)
                     else resolve(res.rows)
                     client.end()
                 })
@@ -24,6 +23,7 @@ class Dao {
         })
     }
 }
+
 
 
 module.exports = Dao

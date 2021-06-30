@@ -17,7 +17,7 @@ class Consultas {
     }
 
     insertClientes(params) {
-        return `INSERT INTO clientes (codigo, nome, ponto, status) VALUES (${params.codigo}, '${params.nome}', ${params.status}, ${params.ponto}) RETURNING *`
+        return `INSERT INTO clientes (codigo, nome, ponto, status, nome_bairro) VALUES (${params.codigo}, '${params.nome}', ${params.ponto}, ${params.status}, '${params.bairro}') RETURNING *`
     }
 
     insertBairros(params) {
@@ -30,6 +30,25 @@ class Consultas {
 
     insertTiposConexao(params) {
         return `INSERT INTO tipos_conexao (descricao) VALUES ('${params.descricao}') RETURNING * `
+    }
+
+    insertRelatorioGeral(params) {
+        return `INSERT INTO relatorio_geral (
+            codigo_cliente,
+            ponto_cliente,
+            nome_bairro,
+            id_motivo,
+            id_tipo_conexao,
+            obs
+        ) 
+        VALUES (
+            ${params.codigo},
+            ${params.ponto},
+            '${params.bairro}',
+            ${params.motivo},
+            ${params.tipoConexao},
+            '${params.obs}'
+        )`
     }
 }
 

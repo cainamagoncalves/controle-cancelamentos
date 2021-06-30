@@ -1,7 +1,9 @@
 const express = require('express')
 const session = require('express-session')
-const router = express.Router()
+
 const control = require('./Controllers')
+
+const router = express.Router()
 
 router.use(express.json())
 router.use(express.urlencoded({ extended: true }));
@@ -15,6 +17,9 @@ router.use(
 
 router.use((req, res, next) => next())
 
+router.route('/')
+    .get(control.getIndex)
+
 router.route('/clientes')
     .get(control.getClientes)
 
@@ -27,7 +32,7 @@ router.route('/motivos')
 router.route('/tiposconexao')
     .get(control.getTiposConexao)
 
-router.route('/clientes')
+router.route('/clientes', )
     .post(control.postClientes)
 
 router.route('/bairros')
@@ -38,6 +43,9 @@ router.route('/motivos')
 
 router.route('/tiposconexao')
     .post(control.postTiposConexao)
+    
+router.route('/relatoriogeral')
+    .post(control.postRelatorioGeral)
 
 module.exports = router
 

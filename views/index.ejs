@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="css/styles.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="form">
+        <form class="formClient" action="/relatoriogeral" method="POST">
+            <input type="number" placeholder="Código" name="codigoCliente" required>
+            <input type="text" placeholder="Nome" name="nomeCliente" required>
+            <input type="number" placeholder="Ponto" name="pontoCliente" required>
+            <label for="status">Status:</label>
+            <select name="status">
+                <option value="true">Ativo</option>
+                <option value="false">Cancelado</option>
+            </select>
+            <input type="bairro" placeholder="Bairro" name="nomeBairro" required>
+            <label for="disponibilidade">Disponibilidade:</label>
+            <select name="disponibilidade">
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+            </select>
+            <label for="motivo">Escolha um motivo:</label>
+            <select name="motivo" required>
+                <option value="1">Mudança de Endereço</option>
+                <option value="2">Mudança de Cidade</option>  
+            </select>
+            <label for="tipoConexao">Tipo de Conexão:</label>
+            <select name="tipoConexao" required>
+                <option value="1">Fibra</option>
+                <option value="2">Rádio</option>  
+            </select>
+            <textarea name="obs" cols="30" rows="10" placeholder="Observações" required></textarea>
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+</body>
+
+</html>
