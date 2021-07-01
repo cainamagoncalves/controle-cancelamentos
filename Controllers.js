@@ -6,8 +6,22 @@ const dao = new Dao()
 
 module.exports = {
 
+  getTeste: async (req, res) => {
+    const sql = consultas.verifyBairros(req.query.bairro)
+    res.json(await dao.query(sql))
+  },
+
   getIndex: async (req, res) => {
-    res.render('index')
+    const data = {}
+    data.motivos = await dao.query(consultas.selectMotivos())
+    data.tiposConexao = await dao.query(consultas.selectTiposConexao())
+    res.render('index', { data })
+  },
+
+
+  getRelatorio: async (req, res) => {
+    const data = await dao.query(consultas.selectRelatorioGeral())
+    res.render('relatorio', { data })
   },
 
   getClientes: async (req, res) => {
@@ -82,13 +96,28 @@ module.exports = {
       bairro: req.body.nomeBairro,
       motivo: req.body.motivo,
       tipoConexao: req.body.tipoConexao,
-      obs: req.body.obs
+      obs: req.body.obs,
+      dataCancelado: req.body.dataCancelado
     }
 
-    await dao.query(consultas.insertBairros(bairro)).catch(e => res.send(e.routine))
-    await dao.query(consultas.insertClientes(cliente)).catch(e => res.send(e.routine))
-    await dao.query(consultas.insertRelatorioGeral(relatorioGeral)).catch(e => res.send(e.routine))
+    const bairroExiste = await dao.query(consultas.selectBairros(bairro.nome))//.catch(e => res.send(e.routine))
+
+    if (bairroExiste.length === 1) {
+      await dao.query(consultas.updateBairros(bairro))//.catch(e => res.send(e.routine))
+    } else {
+      await dao.query(consultas.insertBairros(bairro))//.catch(e => res.send(e.routine))
+    }
+
+    const clienteExiste = await dao.query(consultas.selectClientes(cliente.codigo))
+
+    if (clienteExiste.length === 1) {
+      await dao.query(consultas.updateClientes(cliente))
+    } else {
+      await dao.query(consultas.insertClientes(cliente))//.catch(e => res.send(e.routine))
+    }
+    
+    await dao.query(consultas.insertRelatorioGeral(relatorioGeral))//.catch(e => res.send(e.routine))
 
     res.status(200).send("Sucesso!")
-  }
+  }  
 }

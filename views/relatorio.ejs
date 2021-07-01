@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/relatorio.css">
+  <title>Document</title>
+</head>
+<body>
+<table>
+  <tr>
+    <th>Cadastrado</th>
+    <th>Cancelado</th>
+    <th>Código</th>
+    <th>Cliente</th>
+    <th>Ponto</th>
+    <th>Status</th>
+    <th>Bairro</th>
+    <th>Disponibilidade</th>
+    <th>Motivo</th>
+    <th>Tipo de Conexão</th>
+    <th>Observações</th>
+  </tr> 
+  <% for (let row in data) { %>
+    <tr>
+      <td><%= data[row].data_relatorio %></td>
+      <td><%= data[row].data_cancelamento %></td>
+      <td><%= data[row].codigo %></td>
+      <td><%= data[row].cliente %></td>
+      <td><%= data[row].ponto %></td>
+      <td><%= data[row].status %></td>
+      <td><%= data[row].bairro %></td>
+      <td><%= data[row].disponibilidade %></td>
+      <td><%= data[row].motivo %></td>
+      <td><%= data[row].tipo_conexao %></td>
+      <td><%= data[row].obs %></td>
+    </tr>
+  <% } %>
+</table>  
+</body>
+</html>

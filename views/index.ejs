@@ -28,18 +28,27 @@
             </select>
             <label for="motivo">Escolha um motivo:</label>
             <select name="motivo" required>
-                <option value="1">Mudança de Endereço</option>
-                <option value="2">Mudança de Cidade</option>  
+                <% for (let motivo in data.motivos) { %>
+                    <option value="<%= data.motivos[motivo].id %>"><%= data.motivos[motivo].descricao %></option>
+                <% } %>
             </select>
             <label for="tipoConexao">Tipo de Conexão:</label>
             <select name="tipoConexao" required>
-                <option value="1">Fibra</option>
-                <option value="2">Rádio</option>  
+                <% for (let tipoConexao in data.tiposConexao) { %>
+                <option value="<%= data.tiposConexao[tipoConexao].id %>"><%= data.tiposConexao[tipoConexao].descricao %></option>  
+                <% } %>
             </select>
+            <input type="date" name="dataCancelado" id="dataCancelado" required>
             <textarea name="obs" cols="30" rows="10" placeholder="Observações" required></textarea>
             <button type="submit">Salvar</button>
         </form>
     </div>
 </body>
+<script>
+    const date = new Date()
+    const input = document.getElementById("dataCancelado")
+    const month = date.getMonth() + 1 <= 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
+    input.value = `${date.getFullYear()}-${month}-${date.getDate()}`
+</script>
 
 </html>

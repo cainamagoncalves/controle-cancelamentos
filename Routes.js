@@ -17,8 +17,14 @@ router.use(
 
 router.use((req, res, next) => next())
 
+router.route('/teste')
+    .get(control.getTeste)
+
 router.route('/')
     .get(control.getIndex)
+
+router.route('/relatorio') 
+    .get(control.getRelatorio)
 
 router.route('/clientes')
     .get(control.getClientes)
@@ -48,4 +54,3 @@ router.route('/relatoriogeral')
     .post(control.postRelatorioGeral)
 
 module.exports = router
-
